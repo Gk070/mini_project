@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget{
@@ -9,12 +10,47 @@ class _LoginState extends State<Login>{
 
   String email = '';
   String password = '';
-  bool _obscurepassword = true;
+  bool _obscurePassword = true;
 
   void _togglePassword(){
     setState(() {
-      _obscurepassword = !_obscurepassword;
+      _obscurePassword = !_obscurePassword;
     });
+  }
+
+  void _showCupertinoAlert(String message){
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context){
+          return CupertinoAlertDialog(
+            title: Text(
+              "Invalid Credentials"
+            ),
+            content: Text(
+              message
+            ),
+            actions: [
+              CupertinoDialogAction(
+                  child: Text(
+                    'Ok'
+                  ),
+                onPressed: (){
+                    Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        }
+    );
+  }
+
+  void _checkEmpty(){
+    if(email.isEmpty || password.isEmpty){
+      _showCupertinoAlert("All fields are mandatory");
+    }
+    else{
+      Navigator.pushNamed(context, '/home');
+    }
   }
 
   @override
@@ -98,14 +134,14 @@ class _LoginState extends State<Login>{
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscurepassword ? Icons.lock : Icons.lock_open
+                      _obscurePassword ? Icons.lock : Icons.lock_open
                     ),
                     onPressed: () {
                       _togglePassword();
                     },
                   ),
                 ),
-                obscureText: _obscurepassword,
+                obscureText: _obscurePassword,
                 onChanged: (value){
                   setState(() {
                     password = value;
@@ -134,16 +170,18 @@ class _LoginState extends State<Login>{
           Padding(
             padding: EdgeInsets.fromLTRB(30.0, .0, 30.0, 0.0),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                _checkEmpty();
+              },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.indigo[500],
-                padding: EdgeInsets.fromLTRB(150.0, 15.0, 150.0, 15.0),
+                padding: EdgeInsets.fromLTRB(135.0, 15.0, 135.0, 15.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7.0),
                 ),
               ),
               child: Text(
-                'Sign in',
+                'Log in',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.0,
@@ -155,7 +193,11 @@ class _LoginState extends State<Login>{
             height: 60.0,
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  Navigator.pushNamed(context, '/signup');
+                });
+              },
               child: Text(
                 'Create new account',
                 style: TextStyle(
