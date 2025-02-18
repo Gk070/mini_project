@@ -8,7 +8,8 @@ class _ProfileState extends State<Profile>{
   String name = '';
   String phn = '';
   String jobs = '';
-  String ch = '';
+  String district = '';
+  String place = '';
 
   Widget build(BuildContext context){
     return Scaffold(
@@ -157,7 +158,7 @@ class _ProfileState extends State<Profile>{
                 ),
                 onChanged: (value){
                   setState(() {
-                    jobs = value;
+                    district = value;
                   });
                 }
             ),
@@ -178,7 +179,7 @@ class _ProfileState extends State<Profile>{
                 ),
                 onChanged: (value){
                   setState(() {
-                    jobs = value;
+                    place = value;
                   });
                 }
             ),

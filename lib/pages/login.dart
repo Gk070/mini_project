@@ -49,8 +49,11 @@ class _LoginState extends State<Login>{
     if(email.isEmpty || password.isEmpty || ch.isEmpty){
       _showCupertinoAlert("All fields are mandatory");
     }
-    else if(ch == 'w'){
+    else if(ch == 'w' || ch == 'W'){
       Navigator.pushNamed(context, '/profile');
+    }
+    else if(ch == 'e' || ch == 'E'){
+      Navigator.pushNamed(context, '/profileW');
     }
   }
 
