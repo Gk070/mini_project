@@ -1,14 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class ProfileW extends StatefulWidget{
-  _ProfileWState createState() => _ProfileWState();
+class ProfileE extends StatefulWidget{
+  _ProfileEState createState() => _ProfileEState();
 }
 
-class _ProfileWState extends State<ProfileW>{
+class _ProfileEState extends State<ProfileE>{
   String name = '';
   String phn = '';
   String district = '';
   String place = '';
+
+  void _checkEmpty(){
+    if(name.isEmpty || phn.isEmpty || district.isEmpty || place.isEmpty){
+      _showCupertinoAlert("All fields are mandatory");
+    }
+    else{
+
+    }
+  }
+
+  void _showCupertinoAlert(String message){
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context){
+          return CupertinoAlertDialog(
+            title: Text(
+                "Invalid Credentials"
+            ),
+            content: Text(
+                message
+            ),
+            actions: [
+              CupertinoDialogAction(
+                child: Text(
+                    "Ok"
+                ),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        }
+    );
+  }
 
   Widget build(BuildContext context){
     return Scaffold(
@@ -135,6 +171,34 @@ class _ProfileWState extends State<ProfileW>{
                   });
                 }
             ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20.0, .0, 20.0, 0.0),
+            child: TextButton(
+              onPressed: () {
+                _checkEmpty();
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.indigo[500],
+                padding: EdgeInsets.fromLTRB(143.0, 15.0, 143.0, 15.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7.0),
+                ),
+              ),
+              child: Text(
+                'Submit',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 150.0,
           ),
         ],
       ),

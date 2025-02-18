@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class Profile extends StatefulWidget{
   _ProfileState createState() => _ProfileState();
@@ -10,6 +11,42 @@ class _ProfileState extends State<Profile>{
   String jobs = '';
   String district = '';
   String place = '';
+  String exp = '';
+
+  void _checkEmpty(){
+    if(name.isEmpty || phn.isEmpty || jobs.isEmpty || district.isEmpty || place.isEmpty || exp.isEmpty){
+      _showCupertinoAlert("All fields are mandatory");
+    }
+    else{
+
+    }
+  }
+
+  void _showCupertinoAlert(String message){
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context){
+          return CupertinoAlertDialog(
+            title: Text(
+                "Invalid Credentials"
+            ),
+            content: Text(
+                message
+            ),
+            actions: [
+              CupertinoDialogAction(
+                child: Text(
+                    "Ok"
+                ),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        }
+    );
+  }
 
   Widget build(BuildContext context){
     return Scaffold(
@@ -51,7 +88,7 @@ class _ProfileState extends State<Profile>{
             ),
           ),
           SizedBox(
-            height: 20.0,
+            height: 10.0,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0,10.0),
@@ -112,6 +149,27 @@ class _ProfileState extends State<Profile>{
                 onChanged: (value){
                   setState(() {
                     jobs = value;
+                  });
+                }
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+            child: TextField(
+                decoration: InputDecoration(
+                  label: Text("Experience"),
+                  hintText: "ex: 0, 1.. years",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.indigoAccent,
+                      )
+                  ),
+                ),
+                onChanged: (value){
+                  setState(() {
+                    exp = value;
                   });
                 }
             ),
@@ -182,6 +240,31 @@ class _ProfileState extends State<Profile>{
                     place = value;
                   });
                 }
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20.0, .0, 20.0, 0.0),
+            child: TextButton(
+              onPressed: () {
+                _checkEmpty();
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.indigo[500],
+                padding: EdgeInsets.fromLTRB(143.0, 15.0, 143.0, 15.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7.0),
+                ),
+              ),
+              child: Text(
+                'Submit',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
             ),
           ),
         ],

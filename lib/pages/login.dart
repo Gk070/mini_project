@@ -53,7 +53,7 @@ class _LoginState extends State<Login>{
       Navigator.pushNamed(context, '/profile');
     }
     else if(ch == 'e' || ch == 'E'){
-      Navigator.pushNamed(context, '/profileW');
+      Navigator.pushNamed(context, '/profileE');
     }
   }
 
