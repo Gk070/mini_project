@@ -98,8 +98,8 @@ class _ProfileWState extends State<ProfileW>{
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
                 decoration: InputDecoration(
-                  label: Text("Jobs interested"),
-                  hintText: "ex: Plumbing, Carpenter..",
+                  label: Text("District"),
+                  hintText: "ex: Pathanamthitta",
                   filled: true,
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
@@ -110,35 +110,9 @@ class _ProfileWState extends State<ProfileW>{
                 ),
                 onChanged: (value){
                   setState(() {
-                    district = value;
+                    place = value;
                   });
                 }
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.indigoAccent,
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(5.0),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                          Icons.upload_file
-                      ),
-                      onPressed: (){},
-                    ),
-                    Text(
-                        'Upload document'
-                    ),
-                  ],
-                ),
-              ),
             ),
           ),
           Padding(
