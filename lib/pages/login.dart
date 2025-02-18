@@ -152,7 +152,9 @@ class _LoginState extends State<Login>{
           Padding(
             padding: EdgeInsets.fromLTRB(180.0, 0.0, 0.0, 0.0),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/forgotPass');
+              },
               child: Text(
                 'Forgot your Password?',
                 style: TextStyle(
