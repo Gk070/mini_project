@@ -10,6 +10,7 @@ class _LoginState extends State<Login>{
 
   String email = '';
   String password = '';
+  String ch = '';
   bool _obscurePassword = true;
 
   void _togglePassword(){
@@ -45,11 +46,11 @@ class _LoginState extends State<Login>{
   }
 
   void _checkEmpty(){
-    if(email.isEmpty || password.isEmpty){
+    if(email.isEmpty || password.isEmpty || ch.isEmpty){
       _showCupertinoAlert("All fields are mandatory");
     }
-    else{
-      Navigator.pushNamed(context, '/home');
+    else if(ch == 'w'){
+      Navigator.pushNamed(context, '/profile');
     }
   }
 
@@ -104,7 +105,7 @@ class _LoginState extends State<Login>{
             child: TextField(
               decoration: InputDecoration(
                 label: Text("Email"),
-                hintText: "amalkrishna@gmail.com",
+                hintText: "ex: amalkrishna@gmail.com",
                 filled: true,
                 fillColor: Colors.indigo[50],
                 enabledBorder: OutlineInputBorder(
@@ -145,6 +146,27 @@ class _LoginState extends State<Login>{
                 onChanged: (value){
                   setState(() {
                     password = value;
+                  });
+                }
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
+            child: TextField(
+                decoration: InputDecoration(
+                  label: Text("Type(Employer, Worker)"),
+                  hintText: "E/ W",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.indigoAccent,
+                      )
+                  ),
+                ),
+                onChanged: (value){
+                  setState(() {
+                    ch = value;
                   });
                 }
             ),
@@ -211,7 +233,7 @@ class _LoginState extends State<Login>{
               ),
             ),
           SizedBox(
-            height: 200.0,
+            height: 150.0,
           ),
         ],
       ),

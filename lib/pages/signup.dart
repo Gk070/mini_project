@@ -11,6 +11,7 @@ class _SignUpState extends State<SignUp>{
   String email = '';
   String password = '';
   String confirmPassword= '';
+  String ch ='';
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -53,7 +54,7 @@ class _SignUpState extends State<SignUp>{
   }
 
   void _checkEmpty(){
-    if(email.isEmpty || password.isEmpty || confirmPassword.isEmpty){
+    if(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || ch.isEmpty){
       _showCupertinoAlert("All fields are mandatory");
     }
     else if(password != confirmPassword){
@@ -189,6 +190,27 @@ class _SignUpState extends State<SignUp>{
                 }
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
+            child: TextField(
+                decoration: InputDecoration(
+                  label: Text("Type(Employer, Worker, Both)"),
+                  hintText: "E/ W/ B",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.indigoAccent,
+                      )
+                  ),
+                ),
+                onChanged: (value){
+                  setState(() {
+                    ch = value;
+                  });
+                }
+            ),
+          ),
           SizedBox(
             height: 30.0,
           ),
@@ -206,7 +228,7 @@ class _SignUpState extends State<SignUp>{
                 ),
               ),
               child: Text(
-                'Sign in',
+                'Sign up',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.0,
@@ -234,7 +256,7 @@ class _SignUpState extends State<SignUp>{
             ),
           ),
           SizedBox(
-            height: 200.0,
+            height: 150.0,
           ),
         ],
       ),

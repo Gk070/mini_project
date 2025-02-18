@@ -96,7 +96,7 @@ class _ForgotPassState extends State<ForgotPass> {
             child: TextField(
                 decoration: InputDecoration(
                   label: Text("Enter your email"),
-                  hintText: "amalkrishna@gmail.com",
+                  hintText: "ex: amalkrishna@gmail.com",
                   filled: true,
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
