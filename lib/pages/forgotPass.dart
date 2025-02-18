@@ -7,6 +7,7 @@ class ForgotPass extends StatefulWidget{
 }
 
 class _ForgotPassState extends State<ForgotPass> {
+
   String email = '';
 
   void _showCupertinoAlert(String message){
@@ -47,6 +48,7 @@ class _ForgotPassState extends State<ForgotPass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           ''
@@ -114,14 +116,14 @@ class _ForgotPassState extends State<ForgotPass> {
             height: 25.0,
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20.0, .0, 20.0, 0.0),
+            padding: EdgeInsets.fromLTRB(25.0, .0, 20.0, 0.0),
             child: TextButton(
               onPressed: () {
                 _checkEmpty();
               },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.indigo[500],
-                padding: EdgeInsets.fromLTRB(125.0, 15.0, 125.0, 15.0),
+                padding: EdgeInsets.fromLTRB(105.0, 15.0, 110.0, 15.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7.0),
                 ),

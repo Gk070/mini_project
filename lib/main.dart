@@ -6,13 +6,14 @@ import 'package:mini_project/pages/page3.dart';
 import 'package:mini_project/pages/login.dart';
 import 'package:mini_project/pages/profile.dart';
 import 'package:mini_project/pages/signup.dart';
-import 'package:mini_project/pages/forgotPass.dart';
+import 'package:mini_project/pages/otp.dart';
+
 
 
 void main() => runApp(
     MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/forgotPass',
+        initialRoute: '/otp',
         routes: {
           '/' : (context) => Page1(),
           '/page2' : (context) => Page2(),
@@ -21,6 +22,8 @@ void main() => runApp(
           '/signup' : (context) => SignUp(),
           '/profile' : (context) => Profile(),
           '/forgotPass' : (context) => ForgotPass(),
+          '/otp' : (context) => Otp(),
+          'setPassword' : (context) => SetPassword(),
         },
     )
 );
