@@ -14,7 +14,7 @@ import 'package:mini_project/pages/successful.dart';
 void main() => runApp(
     MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/profile',
+        initialRoute: '/',
         routes: {
           '/' : (context) => Page1(),
           '/page2' : (context) => Page2(),
