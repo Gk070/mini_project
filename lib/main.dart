@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_project/pages/applyElec.dart';
 import 'package:mini_project/pages/forgotPass.dart';
 import 'package:mini_project/pages/homeW.dart';
 import 'package:mini_project/pages/page1.dart';
@@ -12,11 +13,19 @@ import 'package:mini_project/pages/otp.dart';
 import 'package:mini_project/pages/setPassword.dart';
 import 'package:mini_project/pages/successful.dart';
 import 'package:mini_project/pages/homeE.dart';
+import 'package:mini_project/pages/applyWel.dart';
+import 'package:mini_project/pages/applyFarmer.dart';
+import 'package:mini_project/pages/applyPharm.dart';
+import 'package:mini_project/pages/applyTech.dart';
+import 'package:mini_project/pages/applyMason.dart';
+import 'package:mini_project/pages/applyCarp.dart';
+import 'package:mini_project/pages/applyPlum.dart';
+
 
 void main() => runApp(
     MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',
+        initialRoute: '/homeW',
         routes: {
           '/' : (context) => Page1(),
           '/page2' : (context) => Page2(),
@@ -31,6 +40,14 @@ void main() => runApp(
           '/successful' : (context) => Successful(),
           '/homeW' : (context) => HomeW(),
           '/homeE' : (context) => HomeE(),
+          '/applyElec' : (context) => ApplyElectrician(),
+          '/applyWel' : (context) => ApplyWelder(),
+          '/applyFarmer' : (context) => ApplyFarmer(),
+          '/applyPharm' : (context) => ApplyPharmacist(),
+          '/applyTech' : (context) => ApplyTechnician(),
+          '/applyMason' : (context) => ApplyMason(),
+          '/applyCarp' : (context) => ApplyCarpenter(),
+          '/applyPlum' : (context) => ApplyPlumber()
         },
     )
 );

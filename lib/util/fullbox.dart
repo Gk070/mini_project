@@ -27,152 +27,183 @@ class FullBox extends StatefulWidget {
 }
 
 class _FullBoxState extends State<FullBox> {
+
+  void _checkPage(String jobPos){
+    if (jobPos == 'Electrician') {
+      Navigator.pushNamed(context, '/applyElec');
+    } else if (jobPos == 'Plumber') {
+      Navigator.pushNamed(context, '/applyPlum');
+    } else if (jobPos == 'Carpenter') {
+      Navigator.pushNamed(context, '/applyCarp');
+    } else if (jobPos == 'Farmer') {
+      Navigator.pushNamed(context, '/applyFarmer');
+    } else if (jobPos == 'Mason') {
+      Navigator.pushNamed(context, '/applyMason');
+    } else if (jobPos == 'Pharmacist') {
+      Navigator.pushNamed(context, '/applyPharm');
+    } else if (jobPos == 'Technician') {
+      Navigator.pushNamed(context, '/applyTech');
+    } else if (jobPos == 'Welder') {
+      Navigator.pushNamed(context, '/applyWel');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.grey[100],
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          padding: EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      image: DecorationImage(
-                        image: AssetImage(widget.image1),
-                        fit: BoxFit.cover,
+        GestureDetector(
+          onTap: (){
+            _checkPage(widget.jobPos1);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            padding: EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        image: DecorationImage(
+                          image: AssetImage(widget.image1),
+                          fit: BoxFit.cover,
+                        ),
                       ),
+                      padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
                     ),
-                    padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
-                  ),
-                  SizedBox(
-                    width: 80.0,
-                  ),
-                  Icon(
-                    Icons.bookmark,
-                    color: Colors.black12,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                widget.jobPos1,
-                style: TextStyle(
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.0,
-                  letterSpacing: 1.0,
-                  color: Colors.black,
+                    SizedBox(
+                      width: 80.0,
+                    ),
+                    Icon(
+                      Icons.bookmark,
+                      color: Colors.black12,
+                    ),
+                  ],
                 ),
-                //style: ,
-              ),
-              Text(
-                widget.location1,
-                style: TextStyle(
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.0,
-                  letterSpacing: 1.0,
-                  color: Colors.black,
+                SizedBox(
+                  height: 10.0,
                 ),
-                //style: ,
-              ),
-              Text(
-                widget.price1,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.0,
-                  letterSpacing: 1.0,
+                Text(
+                  widget.jobPos1,
+                  style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                    letterSpacing: 1.0,
+                    color: Colors.black,
+                  ),
+                  //style: ,
                 ),
-              ),
-            ],
+                Text(
+                  widget.location1,
+                  style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                    letterSpacing: 1.0,
+                    color: Colors.black,
+                  ),
+                  //style: ,
+                ),
+                Text(
+                  widget.price1,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(
           width: 10.0,
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.grey[100],
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          padding: EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      image: DecorationImage(
-                        image: AssetImage(widget.image2),
-                        fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {
+            _checkPage(widget.jobPos2);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            padding: EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        image: DecorationImage(
+                          image: AssetImage(widget.image2),
+                          fit: BoxFit.cover,
+                        ),
                       ),
+                      padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
                     ),
-                    padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
-                  ),
-                  SizedBox(
-                    width: 80.0,
-                  ),
-                  Icon(
-                    Icons.bookmark,
-                    color: Colors.black12,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                widget.jobPos2,
-                style: TextStyle(
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.0,
-                  letterSpacing: 1.0,
-                  color: Colors.black,
+                    SizedBox(
+                      width: 80.0,
+                    ),
+                    Icon(
+                      Icons.bookmark,
+                      color: Colors.black12,
+                    ),
+                  ],
                 ),
-                //style: ,
-              ),
-              Text(
-                widget.location2,
-                style: TextStyle(
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.0,
-                  letterSpacing: 1.0,
-                  color: Colors.black,
+                SizedBox(
+                  height: 10.0,
                 ),
-                //style: ,
-              ),
-              Text(
-                widget.price2,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.0,
-                  letterSpacing: 1.0,
+                Text(
+                  widget.jobPos2,
+                  style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                    letterSpacing: 1.0,
+                    color: Colors.black,
+                  ),
+                  //style: ,
                 ),
-              ),
-            ],
+                Text(
+                  widget.location2,
+                  style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                    letterSpacing: 1.0,
+                    color: Colors.black,
+                  ),
+                  //style: ,
+                ),
+                Text(
+                  widget.price2,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
