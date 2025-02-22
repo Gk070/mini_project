@@ -18,7 +18,7 @@ class _ProfileState extends State<Profile>{
       _showCupertinoAlert("All fields are mandatory");
     }
     else{
-      Navigator.pushNamed(context, '/home');
+      Navigator.pushNamed(context, '/homeW');
     }
   }
 

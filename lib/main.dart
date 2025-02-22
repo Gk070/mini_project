@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project/pages/forgotPass.dart';
+import 'package:mini_project/pages/homeW.dart';
 import 'package:mini_project/pages/page1.dart';
 import 'package:mini_project/pages/page2.dart';
 import 'package:mini_project/pages/page3.dart';
@@ -10,6 +11,7 @@ import 'package:mini_project/pages/signup.dart';
 import 'package:mini_project/pages/otp.dart';
 import 'package:mini_project/pages/setPassword.dart';
 import 'package:mini_project/pages/successful.dart';
+import 'package:mini_project/pages/homeE.dart';
 
 void main() => runApp(
     MaterialApp(
@@ -27,6 +29,8 @@ void main() => runApp(
           '/otp' : (context) => Otp(),
           '/setPassword' : (context) => SetPassword(),
           '/successful' : (context) => Successful(),
+          '/homeW' : (context) => HomeW(),
+          '/homeE' : (context) => HomeE(),
         },
     )
 );
