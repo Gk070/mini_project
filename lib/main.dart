@@ -20,12 +20,14 @@ import 'package:mini_project/pages/applyTech.dart';
 import 'package:mini_project/pages/applyMason.dart';
 import 'package:mini_project/pages/applyCarp.dart';
 import 'package:mini_project/pages/applyPlum.dart';
+import 'package:mini_project/pages/applyJob.dart';
+import 'package:mini_project/pages/succAppl.dart';
 
 
 void main() => runApp(
     MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/homeW',
+        initialRoute: '/succAppl',
         routes: {
           '/' : (context) => Page1(),
           '/page2' : (context) => Page2(),
@@ -47,7 +49,9 @@ void main() => runApp(
           '/applyTech' : (context) => ApplyTechnician(),
           '/applyMason' : (context) => ApplyMason(),
           '/applyCarp' : (context) => ApplyCarpenter(),
-          '/applyPlum' : (context) => ApplyPlumber()
+          '/applyPlum' : (context) => ApplyPlumber(),
+          '/applyJob' : (context) => ApplyJob(),
+          '/succAppl' : (context) => SuccessfulApplication(),
         },
     )
 );

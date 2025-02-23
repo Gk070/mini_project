@@ -155,7 +155,9 @@ class _ApplyPlumberState extends State<ApplyPlumber> {
                     height: 30,
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/applyJob');
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.indigo[500],
                         padding: EdgeInsets.fromLTRB(132.0, 15.0, 132.0, 15.0),
