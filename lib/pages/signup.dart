@@ -1,72 +1,67 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SignUp extends StatefulWidget{
+class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp>{
+class _SignUpState extends State<SignUp> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  final TextEditingController _chController = TextEditingController();
 
-  String email = '';
-  String password = '';
-  String confirmPassword= '';
-  String ch ='';
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
-  void _togglePassword(){
+  void _togglePassword() {
     setState(() {
       _obscurePassword = !_obscurePassword;
     });
   }
 
-  void _toggleConfirmPassword(){
+  void _toggleConfirmPassword() {
     setState(() {
       _obscureConfirmPassword = !_obscureConfirmPassword;
     });
   }
 
-  void _showCupertinoAlert(String message){
+  void _showCupertinoAlert(String message) {
     showCupertinoDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text(
-              "Invalid Credentials"
-            ),
-            content: Text(
-              message
-            ),
+            title: Text("Invalid Credentials"),
+            content: Text(message),
             actions: [
               CupertinoDialogAction(
-                  child: Text(
-                    "Ok"
-                  ),
-                onPressed: (){
-                    Navigator.pop(context);
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.pop(context);
                 },
               ),
             ],
           );
-        }
-    );
+        });
   }
 
-  void _checkEmpty(){
-    if(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || ch.isEmpty){
+  void _checkEmpty() {
+    if (_emailController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _confirmPasswordController.text.isEmpty ||
+        _chController.text.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
-    }
-    else if(password != confirmPassword){
+    } else if (_passwordController.text != _confirmPasswordController.text) {
       _showCupertinoAlert("Password not matching");
-    }
-    else{
+    } else {
       Navigator.pushNamed(context, '/login');
     }
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -114,103 +109,80 @@ class _SignUpState extends State<SignUp>{
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  label: Text("Email"),
-                  hintText: "amalkrishna@gmail.com",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
-                ),
-                onChanged: (value){
-                  setState(() {
-                    email = value;
-                  });
-                }
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                label: Text("Email"),
+                hintText: "amalkrishna@gmail.com",
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
-                decoration: InputDecoration(
-                  label: Text("Password"),
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _obscurePassword ? Icons.lock : Icons.lock_open
-                    ),
-                    onPressed: () {
-                      _togglePassword();
-                    },
-                  ),
+              controller: _passwordController,
+              decoration: InputDecoration(
+                label: Text("Password"),
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+                suffixIcon: IconButton(
+                  icon: Icon(_obscurePassword ? Icons.lock : Icons.lock_open),
+                  onPressed: () {
+                    _togglePassword();
+                  },
                 ),
-                obscureText: _obscurePassword,
-                onChanged: (value){
-                  setState(() {
-                    password = value;
-                  });
-                }
+              ),
+              obscureText: _obscurePassword,
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
-                decoration: InputDecoration(
-                  label: Text("Confirm Password"),
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _obscureConfirmPassword ? Icons.lock : Icons.lock_open
-                    ),
-                    onPressed: () {
-                      _toggleConfirmPassword();
-                    },
-                  ),
+              controller: _confirmPasswordController,
+              decoration: InputDecoration(
+                label: Text("Confirm Password"),
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                      _obscureConfirmPassword ? Icons.lock : Icons.lock_open),
+                  onPressed: () {
+                    _toggleConfirmPassword();
+                  },
                 ),
-                obscureText: _obscureConfirmPassword,
-                onChanged: (value){
-                  setState(() {
-                    confirmPassword = value;
-                  });
-                }
+              ),
+              obscureText: _obscureConfirmPassword,
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
             child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("Type(Employer, Worker, Both)"),
-                  hintText: "E/ W/ B",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
-                ),
-                onChanged: (value){
-                  setState(() {
-                    ch = value;
-                  });
-                }
+              controller: _chController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text("Type(Employer, Worker, Both)"),
+                hintText: "E/ W/ B",
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+              ),
             ),
           ),
           SizedBox(

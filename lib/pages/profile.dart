@@ -6,20 +6,20 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String name = '';
-  String phn = '';
-  String jobs = '';
-  String district = '';
-  String place = '';
-  String exp = '';
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phnController = TextEditingController();
+  final TextEditingController _districtController = TextEditingController();
+  final TextEditingController _expController = TextEditingController();
+  final TextEditingController _placeController = TextEditingController();
+  final TextEditingController _jobsController = TextEditingController();
 
   void _checkEmpty() {
-    if (name.isEmpty ||
-        phn.isEmpty ||
-        jobs.isEmpty ||
-        district.isEmpty ||
-        place.isEmpty ||
-        exp.isEmpty) {
+    if (_nameController.text.isEmpty ||
+        _phnController.text.isEmpty ||
+        _jobsController.text.isEmpty ||
+        _districtController.text.isEmpty ||
+        _placeController.text.isEmpty ||
+        _expController.text.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
     } else {
       Navigator.pushNamed(context, '/homeW');
@@ -91,82 +91,70 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text("Full name"),
-                    hintText: "ex: Imran Khan",
-                    filled: true,
-                    fillColor: Colors.indigo[50],
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                      color: Colors.indigoAccent,
-                    )),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      name = value;
-                    });
-                  }),
+                controller: _nameController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  label: Text("Full name"),
+                  hintText: "ex: Imran Khan",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                    color: Colors.indigoAccent,
+                  )),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    label: Text("Phone No"),
-                    hintText: "ex: 9523423432",
-                    filled: true,
-                    fillColor: Colors.indigo[50],
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                      color: Colors.indigoAccent,
-                    )),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      phn = value;
-                    });
-                  }),
+                controller: _phnController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  label: Text("Phone No"),
+                  hintText: "ex: 9523423432",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                    color: Colors.indigoAccent,
+                  )),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text("Jobs interested"),
-                    hintText: "ex: Plumbing, Carpenter..",
-                    filled: true,
-                    fillColor: Colors.indigo[50],
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                      color: Colors.indigoAccent,
-                    )),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      jobs = value;
-                    });
-                  }),
+                controller: _jobsController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  label: Text("Jobs interested"),
+                  hintText: "ex: Plumbing, Carpenter..",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                    color: Colors.indigoAccent,
+                  )),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    label: Text("Experience"),
-                    hintText: "ex: 0, 1.. years",
-                    filled: true,
-                    fillColor: Colors.indigo[50],
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                      color: Colors.indigoAccent,
-                    )),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      exp = value;
-                    });
-                  }),
+                controller: _expController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  label: Text("Experience"),
+                  hintText: "ex: 0, 1.. years",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                    color: Colors.indigoAccent,
+                  )),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
@@ -193,42 +181,36 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text("District"),
-                    hintText: "ex: Pathanamthitta",
-                    filled: true,
-                    fillColor: Colors.indigo[50],
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                      color: Colors.indigoAccent,
-                    )),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      district = value;
-                    });
-                  }),
+                controller: _districtController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  label: Text("District"),
+                  hintText: "ex: Pathanamthitta",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                    color: Colors.indigoAccent,
+                  )),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text("Place"),
-                    hintText: "ex: Adoor",
-                    filled: true,
-                    fillColor: Colors.indigo[50],
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                      color: Colors.indigoAccent,
-                    )),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      place = value;
-                    });
-                  }),
+                controller: _placeController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  label: Text("Place"),
+                  hintText: "ex: Adoor",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                    color: Colors.indigoAccent,
+                  )),
+                ),
+              ),
             ),
             SizedBox(
               height: 10.0,

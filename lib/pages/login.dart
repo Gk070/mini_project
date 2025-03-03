@@ -7,8 +7,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String email = '';
-  String password = '';
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   String ch = '';
   bool _obscurePassword = true;
 
@@ -38,7 +38,9 @@ class _LoginState extends State<Login> {
   }
 
   void _checkEmpty() {
-    if (email.isEmpty || password.isEmpty || ch.isEmpty) {
+    if (_emailController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        ch.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
     } else if (ch == 'w' || ch == 'W') {
       Navigator.pushNamed(context, '/profile');
@@ -96,47 +98,41 @@ class _LoginState extends State<Login> {
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  label: Text("Email"),
-                  hintText: "ex: amalkrishna@gmail.com",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    email = value;
-                  });
-                }),
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                label: Text("Email"),
+                hintText: "ex: amalkrishna@gmail.com",
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
-                decoration: InputDecoration(
-                  label: Text("Password"),
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscurePassword ? Icons.lock : Icons.lock_open),
-                    onPressed: () {
-                      _togglePassword();
-                    },
-                  ),
+              controller: _passwordController,
+              decoration: InputDecoration(
+                label: Text("Password"),
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+                suffixIcon: IconButton(
+                  icon: Icon(_obscurePassword ? Icons.lock : Icons.lock_open),
+                  onPressed: () {
+                    _togglePassword();
+                  },
                 ),
-                obscureText: _obscurePassword,
-                onChanged: (value) {
-                  setState(() {
-                    password = value;
-                  });
-                }),
+              ),
+              obscureText: _obscurePassword,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),

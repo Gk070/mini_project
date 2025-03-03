@@ -1,82 +1,71 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SetPassword extends StatefulWidget{
+class SetPassword extends StatefulWidget {
   @override
   _SetPasswordState createState() => _SetPasswordState();
 }
 
 class _SetPasswordState extends State<SetPassword> {
-  String password = '';
-  String confirmPassword= '';
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
-  void _togglePassword(){
+  void _togglePassword() {
     setState(() {
       _obscurePassword = !_obscurePassword;
     });
   }
 
-  void _toggleConfirmPassword(){
+  void _toggleConfirmPassword() {
     setState(() {
       _obscureConfirmPassword = !_obscureConfirmPassword;
     });
   }
 
-  void _showCupertinoAlert(String message){
+  void _showCupertinoAlert(String message) {
     showCupertinoDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text(
-                "Invalid Credentials"
-            ),
-            content: Text(
-                message
-            ),
+            title: Text("Invalid Credentials"),
+            content: Text(message),
             actions: [
               CupertinoDialogAction(
-                child: Text(
-                    "Ok"
-                ),
-                onPressed: (){
+                child: Text("Ok"),
+                onPressed: () {
                   Navigator.pop(context);
                 },
               ),
             ],
           );
-        }
-    );
+        });
   }
 
-  void _checkEmpty(){
-    if(password.isEmpty || confirmPassword.isEmpty){
+  void _checkEmpty() {
+    if (_passwordController.text.isEmpty ||
+        _confirmPasswordController.text.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
-    }
-    else if(password != confirmPassword){
+    } else if (_passwordController != _confirmPasswordController) {
       _showCupertinoAlert("Password not matching");
-    }
-    else{
+    } else {
       Navigator.pushNamed(context, '/successful');
     }
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(
-          ''
-        ),
+        title: Text(''),
         leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back
-            ),
-            onPressed: (){
-              Navigator.pushReplacementNamed(context, '/successful');
-            },
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/successful');
+          },
         ),
       ),
       body: Column(
@@ -124,59 +113,46 @@ class _SetPasswordState extends State<SetPassword> {
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
-                decoration: InputDecoration(
-                  label: Text("Enter new password"),
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _obscurePassword ? Icons.lock : Icons.lock_open
-                    ),
-                    onPressed: () {
-                      _togglePassword();
-                    },
-                  ),
+              controller: _passwordController,
+              decoration: InputDecoration(
+                label: Text("Enter new password"),
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+                suffixIcon: IconButton(
+                  icon: Icon(_obscurePassword ? Icons.lock : Icons.lock_open),
+                  onPressed: () {
+                    _togglePassword();
+                  },
                 ),
-                obscureText: _obscurePassword,
-                onChanged: (value){
-                  setState(() {
-                    password = value;
-                  });
-                }
+              ),
+              obscureText: _obscurePassword,
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
-                decoration: InputDecoration(
-                  label: Text("Re-enter password"),
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _obscureConfirmPassword ? Icons.lock : Icons.lock_open
-                    ),
-                    onPressed: () {
-                      _toggleConfirmPassword();
-                    },
-                  ),
+              controller: _confirmPasswordController,
+              decoration: InputDecoration(
+                label: Text("Re-enter password"),
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                      _obscureConfirmPassword ? Icons.lock : Icons.lock_open),
+                  onPressed: () {
+                    _toggleConfirmPassword();
+                  },
                 ),
-                obscureText: _obscureConfirmPassword,
-                onChanged: (value){
-                  setState(() {
-                    confirmPassword = value;
-                  });
-                }
+              ),
+              obscureText: _obscureConfirmPassword,
             ),
           ),
           SizedBox(

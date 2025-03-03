@@ -7,7 +7,7 @@ class ForgotPass extends StatefulWidget {
 }
 
 class _ForgotPassState extends State<ForgotPass> {
-  String email = '';
+  final TextEditingController _emailController = TextEditingController();
 
   void _showCupertinoAlert(String message) {
     showCupertinoDialog(
@@ -31,7 +31,7 @@ class _ForgotPassState extends State<ForgotPass> {
   }
 
   void _checkEmpty() {
-    if (email.isEmpty) {
+    if (_emailController.text.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
     } else {
       Navigator.pushNamed(context, '/otp');
@@ -85,22 +85,19 @@ class _ForgotPassState extends State<ForgotPass> {
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 8.0, 25.0, 8.0),
             child: TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  label: Text("Enter your email"),
-                  hintText: "ex: amalkrishna@gmail.com",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    email = value;
-                  });
-                }),
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                label: Text("Enter your email"),
+                hintText: "ex: amalkrishna@gmail.com",
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+              ),
+            ),
           ),
           SizedBox(
             height: 25.0,

@@ -7,9 +7,9 @@ class Filter extends StatefulWidget {
 }
 
 class _FilterState extends State<Filter> {
-  String category = '';
-  String district = '';
-  String place = '';
+  final TextEditingController _categoryController = TextEditingController();
+  final TextEditingController _districtController = TextEditingController();
+  final TextEditingController _placeController = TextEditingController();
   RangeValues values = const RangeValues(500, 100000);
 
   void _showCupertinoAlert(String message) {
@@ -42,60 +42,51 @@ class _FilterState extends State<Filter> {
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("Category"),
-                  hintText: "Carpenter",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    category = value;
-                  });
-                }),
+              controller: _categoryController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text("Category"),
+                hintText: "Carpenter",
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("District"),
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    district = value;
-                  });
-                }),
+              controller: _districtController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text("District"),
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("Place"),
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    place = value;
-                  });
-                }),
+              controller: _placeController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text("Place"),
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+              ),
+            ),
           ),
           SizedBox(
             height: 20.0,
