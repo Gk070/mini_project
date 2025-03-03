@@ -91,6 +91,7 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     label: Text("Full name"),
                     hintText: "ex: Imran Khan",
@@ -110,6 +111,7 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     label: Text("Phone No"),
                     hintText: "ex: 9523423432",
@@ -129,6 +131,7 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     label: Text("Jobs interested"),
                     hintText: "ex: Plumbing, Carpenter..",
@@ -148,6 +151,7 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     label: Text("Experience"),
                     hintText: "ex: 0, 1.. years",
@@ -178,7 +182,7 @@ class _ProfileState extends State<Profile> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.upload_file),
-                        onPressed: () {},
+                        onPressed: () async {},
                       ),
                       Text('Upload document'),
                     ],
@@ -189,6 +193,7 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     label: Text("District"),
                     hintText: "ex: Pathanamthitta",
@@ -208,6 +213,7 @@ class _ProfileState extends State<Profile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
               child: TextField(
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     label: Text("Place"),
                     hintText: "ex: Adoor",

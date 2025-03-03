@@ -114,6 +114,7 @@ class _SignUpState extends State<SignUp>{
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   label: Text("Email"),
                   hintText: "amalkrishna@gmail.com",
@@ -133,7 +134,7 @@ class _SignUpState extends State<SignUp>{
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
+            padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
                 decoration: InputDecoration(
                   label: Text("Password"),
@@ -162,7 +163,7 @@ class _SignUpState extends State<SignUp>{
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
+            padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
                 decoration: InputDecoration(
                   label: Text("Confirm Password"),
@@ -191,8 +192,9 @@ class _SignUpState extends State<SignUp>{
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
+            padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   label: Text("Type(Employer, Worker, Both)"),
                   hintText: "E/ W/ B",

@@ -1,46 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPass extends StatefulWidget{
+class ForgotPass extends StatefulWidget {
   @override
   _ForgotPassState createState() => _ForgotPassState();
 }
 
 class _ForgotPassState extends State<ForgotPass> {
-
   String email = '';
 
-  void _showCupertinoAlert(String message){
+  void _showCupertinoAlert(String message) {
     showCupertinoDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title:  Text(
-              'Invalid Credentials'
-            ),
-            content: Text(
-              message
-            ),
+            title: Text('Invalid Credentials'),
+            content: Text(message),
             actions: [
               CupertinoDialogAction(
-                  child: Text(
-                    'Ok',
-                  ),
-                onPressed: (){
-                    Navigator.pop(context);
+                child: Text(
+                  'Ok',
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
                 },
               ),
             ],
           );
-        }
-    );
+        });
   }
 
-  void _checkEmpty(){
-    if(email.isEmpty){
+  void _checkEmpty() {
+    if (email.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
-    }
-    else{
+    } else {
       Navigator.pushNamed(context, '/otp');
     }
   }
@@ -50,14 +43,12 @@ class _ForgotPassState extends State<ForgotPass> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(
-          ''
-        ),
+        title: Text(''),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
           ),
-          onPressed: (){
+          onPressed: () {
             Navigator.pushReplacementNamed(context, '/login');
           },
         ),
@@ -68,16 +59,16 @@ class _ForgotPassState extends State<ForgotPass> {
         children: [
           Text(
             "    Forgot Password",
-              style: TextStyle(
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.bold,
-                fontSize: 25.0,
-                letterSpacing: 1.0,
-                color: Colors.indigo[800],
-              ),
+            style: TextStyle(
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.bold,
+              fontSize: 25.0,
+              letterSpacing: 1.0,
+              color: Colors.indigo[800],
+            ),
           ),
           SizedBox(
-          height: 25.0,
+            height: 25.0,
           ),
           Text(
             "       Please enter your email to reset the password",
@@ -94,6 +85,7 @@ class _ForgotPassState extends State<ForgotPass> {
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 8.0, 25.0, 8.0),
             child: TextField(
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   label: Text("Enter your email"),
                   hintText: "ex: amalkrishna@gmail.com",
@@ -101,16 +93,14 @@ class _ForgotPassState extends State<ForgotPass> {
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     email = value;
                   });
-                }
-            ),
+                }),
           ),
           SizedBox(
             height: 25.0,

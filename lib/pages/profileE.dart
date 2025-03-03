@@ -1,52 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class ProfileE extends StatefulWidget{
+class ProfileE extends StatefulWidget {
   _ProfileEState createState() => _ProfileEState();
 }
 
-class _ProfileEState extends State<ProfileE>{
+class _ProfileEState extends State<ProfileE> {
   String name = '';
   String phn = '';
   String district = '';
   String place = '';
 
-  void _checkEmpty(){
-    if(name.isEmpty || phn.isEmpty || district.isEmpty || place.isEmpty){
+  void _checkEmpty() {
+    if (name.isEmpty || phn.isEmpty || district.isEmpty || place.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
-    }
-    else{
-
-    }
+    } else {}
   }
 
-  void _showCupertinoAlert(String message){
+  void _showCupertinoAlert(String message) {
     showCupertinoDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text(
-                "Invalid Credentials"
-            ),
-            content: Text(
-                message
-            ),
+            title: Text("Invalid Credentials"),
+            content: Text(message),
             actions: [
               CupertinoDialogAction(
-                child: Text(
-                    "Ok"
-                ),
-                onPressed: (){
+                child: Text("Ok"),
+                onPressed: () {
                   Navigator.pop(context);
                 },
               ),
             ],
           );
-        }
-    );
+        });
   }
 
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -74,14 +64,12 @@ class _ProfileEState extends State<ProfileE>{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   icon: Icon(
                     Icons.upload,
                   ),
                 ),
-                Text(
-                    'Upload image'
-                ),
+                Text('Upload image'),
               ],
             ),
           ),
@@ -89,8 +77,9 @@ class _ProfileEState extends State<ProfileE>{
             height: 20.0,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0,10.0),
+            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   label: Text("Full name"),
                   hintText: "ex: Imran Khan",
@@ -98,20 +87,19 @@ class _ProfileEState extends State<ProfileE>{
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     name = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   label: Text("Phone No"),
                   hintText: "ex: 9523423432",
@@ -119,20 +107,19 @@ class _ProfileEState extends State<ProfileE>{
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     phn = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   label: Text("District"),
                   hintText: "ex: Pathanamthitta",
@@ -140,20 +127,19 @@ class _ProfileEState extends State<ProfileE>{
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     place = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   label: Text("Place"),
                   hintText: "ex: Adoor",
@@ -161,16 +147,14 @@ class _ProfileEState extends State<ProfileE>{
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     place = value;
                   });
-                }
-            ),
+                }),
           ),
           SizedBox(
             height: 20.0,

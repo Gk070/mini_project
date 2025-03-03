@@ -86,7 +86,9 @@ class _HomeWState extends State<HomeW> {
                         width: 140.0,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/filter');
+                        },
                         icon: Icon(
                           Icons.tune,
                         ),

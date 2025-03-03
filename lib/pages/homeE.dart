@@ -9,48 +9,44 @@ class HomeE extends StatefulWidget {
 class _HomeEState extends State<HomeE> {
   String jobPos = '';
   String district = '';
-  String place= '';
-  String workers= '';
-  String wage= '';
+  String place = '';
+  String workers = '';
+  String wage = '';
   String exp = '';
   String jobDesc = '';
 
-  void _checkEmpty(){
-    if(jobPos.isEmpty || district.isEmpty || place.isEmpty || workers.isEmpty || wage.isEmpty || exp.isEmpty || jobDesc.isEmpty){
+  void _checkEmpty() {
+    if (jobPos.isEmpty ||
+        district.isEmpty ||
+        place.isEmpty ||
+        workers.isEmpty ||
+        wage.isEmpty ||
+        exp.isEmpty ||
+        jobDesc.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
-    }
-    else{
-
-    }
+    } else {}
   }
 
-  void _showCupertinoAlert(String message){
+  void _showCupertinoAlert(String message) {
     showCupertinoDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text(
-                "Invalid Credentials"
-            ),
-            content: Text(
-                message
-            ),
+            title: Text("Invalid Credentials"),
+            content: Text(message),
             actions: [
               CupertinoDialogAction(
-                child: Text(
-                    "Ok"
-                ),
-                onPressed: (){
+                child: Text("Ok"),
+                onPressed: () {
                   Navigator.pop(context);
                 },
               ),
             ],
           );
-        }
-    );
+        });
   }
 
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -58,19 +54,19 @@ class _HomeEState extends State<HomeE> {
           '',
         ),
         leading: IconButton(
-            onPressed: (){},
+            onPressed: () {},
             icon: Icon(
               Icons.close,
-            )
-        ),
+            )),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0,10.0),
+            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   label: Text("Job Type"),
                   hintText: "ex: Plumbing...",
@@ -78,20 +74,19 @@ class _HomeEState extends State<HomeE> {
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     jobPos = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   label: Text("District"),
                   hintText: "ex: Pathanamthitta....",
@@ -99,20 +94,19 @@ class _HomeEState extends State<HomeE> {
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     district = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   label: Text("Place"),
                   hintText: "ex: Adoor..",
@@ -120,20 +114,19 @@ class _HomeEState extends State<HomeE> {
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     place = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   label: Text("Workers Required"),
                   hintText: "ex: 1, 2..",
@@ -141,20 +134,19 @@ class _HomeEState extends State<HomeE> {
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     workers = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   label: Text("Wage"),
                   hintText: "ex: 1000, 2000....",
@@ -162,20 +154,19 @@ class _HomeEState extends State<HomeE> {
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     wage = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   label: Text("Experience"),
                   hintText: "ex: 0, 1, ....",
@@ -183,36 +174,33 @@ class _HomeEState extends State<HomeE> {
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     place = value;
                   });
-                }
-            ),
+                }),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
             child: TextField(
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   label: Text("Job Description"),
                   filled: true,
                   fillColor: Colors.indigo[50],
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.indigoAccent,
-                      )
-                  ),
+                    color: Colors.indigoAccent,
+                  )),
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     place = value;
                   });
-                }
-            ),
+                }),
           ),
           SizedBox(
             height: 10.0,

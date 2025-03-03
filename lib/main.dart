@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project/pages/applyElec.dart';
+import 'package:mini_project/pages/filter.dart';
 import 'package:mini_project/pages/forgotPass.dart';
 import 'package:mini_project/pages/homeW.dart';
 import 'package:mini_project/pages/page1.dart';
@@ -27,7 +28,7 @@ import 'package:mini_project/pages/succAppl.dart';
 void main() => runApp(
     MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/succAppl',
+        initialRoute: '/profile',
         routes: {
           '/' : (context) => Page1(),
           '/page2' : (context) => Page2(),
@@ -52,6 +53,7 @@ void main() => runApp(
           '/applyPlum' : (context) => ApplyPlumber(),
           '/applyJob' : (context) => ApplyJob(),
           '/succAppl' : (context) => SuccessfulApplication(),
+          '/filter' : (context) => Filter(),
         },
     )
 );
