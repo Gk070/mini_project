@@ -10,6 +10,8 @@ class _SetPasswordState extends State<SetPassword> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  String _password = '';
+  String _confirmPassword = '';
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -113,6 +115,7 @@ class _SetPasswordState extends State<SetPassword> {
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
+              maxLength: 12,
               controller: _passwordController,
               decoration: InputDecoration(
                 label: Text("Enter new password"),
@@ -129,12 +132,16 @@ class _SetPasswordState extends State<SetPassword> {
                   },
                 ),
               ),
+              onSubmitted: (value) {
+                _password = value;
+              },
               obscureText: _obscurePassword,
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
+              maxLength: 12,
               controller: _confirmPasswordController,
               decoration: InputDecoration(
                 label: Text("Re-enter password"),
@@ -152,6 +159,9 @@ class _SetPasswordState extends State<SetPassword> {
                   },
                 ),
               ),
+              onSubmitted: (value) {
+                _confirmPassword = value;
+              },
               obscureText: _obscureConfirmPassword,
             ),
           ),

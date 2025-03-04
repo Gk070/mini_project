@@ -12,7 +12,10 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _chController = TextEditingController();
-
+  String _email = '';
+  String _password = '';
+  String _confirmPassword = '';
+  String _ch = '';
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -121,11 +124,15 @@ class _SignUpState extends State<SignUp> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _email = value;
+              },
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
+              maxLength: 12,
               controller: _passwordController,
               decoration: InputDecoration(
                 label: Text("Password"),
@@ -142,12 +149,16 @@ class _SignUpState extends State<SignUp> {
                   },
                 ),
               ),
+              onSubmitted: (value) {
+                _password = value;
+              },
               obscureText: _obscurePassword,
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
+              maxLength: 12,
               controller: _confirmPasswordController,
               decoration: InputDecoration(
                 label: Text("Confirm Password"),
@@ -165,6 +176,9 @@ class _SignUpState extends State<SignUp> {
                   },
                 ),
               ),
+              onSubmitted: (value) {
+                _confirmPassword = value;
+              },
               obscureText: _obscureConfirmPassword,
             ),
           ),
@@ -183,6 +197,9 @@ class _SignUpState extends State<SignUp> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _ch = value;
+              },
             ),
           ),
           SizedBox(

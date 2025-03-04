@@ -10,6 +10,9 @@ class _FilterState extends State<Filter> {
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _placeController = TextEditingController();
+  String _category = '';
+  String _district = '';
+  String _place = '';
   RangeValues values = const RangeValues(500, 100000);
 
   void _showCupertinoAlert(String message) {
@@ -54,6 +57,9 @@ class _FilterState extends State<Filter> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value){
+                _category = value;
+              },
             ),
           ),
           Padding(
@@ -70,6 +76,9 @@ class _FilterState extends State<Filter> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _district = value;
+              },
             ),
           ),
           Padding(
@@ -86,6 +95,9 @@ class _FilterState extends State<Filter> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _place = value;
+              },
             ),
           ),
           SizedBox(

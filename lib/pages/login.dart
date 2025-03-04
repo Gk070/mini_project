@@ -9,7 +9,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String ch = '';
+  final TextEditingController _chController = TextEditingController();
+  String _email = '';
+  String _password = '';
+  String _ch = '';
   bool _obscurePassword = true;
 
   void _togglePassword() {
@@ -40,11 +43,11 @@ class _LoginState extends State<Login> {
   void _checkEmpty() {
     if (_emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
-        ch.isEmpty) {
+        _chController.text.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
-    } else if (ch == 'w' || ch == 'W') {
+    } else if (_chController.text == 'w' || _chController.text == 'W') {
       Navigator.pushNamed(context, '/profile');
-    } else if (ch == 'e' || ch == 'E') {
+    } else if (_chController.text == 'e' || _chController.text == 'E') {
       Navigator.pushNamed(context, '/profileE');
     }
   }
@@ -110,11 +113,15 @@ class _LoginState extends State<Login> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _email = value;
+              },
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
+              maxLength: 12,
               controller: _passwordController,
               decoration: InputDecoration(
                 label: Text("Password"),
@@ -131,28 +138,31 @@ class _LoginState extends State<Login> {
                   },
                 ),
               ),
+              onSubmitted: (value) {
+                _password = value;
+              },
               obscureText: _obscurePassword,
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
             child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("Type(Employer, Worker)"),
-                  hintText: "E/ W",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    ch = value;
-                  });
-                }),
+              controller: _chController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text("Type(Employer, Worker)"),
+                hintText: "E/ W",
+                filled: true,
+                fillColor: Colors.indigo[50],
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.indigoAccent,
+                )),
+              ),
+              onSubmitted: (value) {
+                _ch = value;
+              },
+            ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(180.0, 0.0, 0.0, 0.0),

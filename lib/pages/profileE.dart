@@ -10,6 +10,10 @@ class _ProfileEState extends State<ProfileE> {
   final TextEditingController _phnController = TextEditingController();
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _placeController = TextEditingController();
+  String _name = '';
+  String _phn = '';
+  String _district = '';
+  String _place = '';
 
   void _checkEmpty() {
     if (_nameController.text.isEmpty ||
@@ -94,6 +98,9 @@ class _ProfileEState extends State<ProfileE> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _name = value;
+              },
             ),
           ),
           Padding(
@@ -111,6 +118,9 @@ class _ProfileEState extends State<ProfileE> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _phn = value;
+              },
             ),
           ),
           Padding(
@@ -128,6 +138,9 @@ class _ProfileEState extends State<ProfileE> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _district = value;
+              },
             ),
           ),
           Padding(
@@ -145,6 +158,9 @@ class _ProfileEState extends State<ProfileE> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSubmitted: (value) {
+                _place = value;
+              },
             ),
           ),
           SizedBox(

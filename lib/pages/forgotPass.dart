@@ -9,6 +9,8 @@ class ForgotPass extends StatefulWidget {
 class _ForgotPassState extends State<ForgotPass> {
   final TextEditingController _emailController = TextEditingController();
 
+  String _email = '';
+
   void _showCupertinoAlert(String message) {
     showCupertinoDialog(
         context: context,
@@ -84,7 +86,7 @@ class _ForgotPassState extends State<ForgotPass> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 8.0, 25.0, 8.0),
-            child: TextField(
+            child: TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
@@ -97,6 +99,9 @@ class _ForgotPassState extends State<ForgotPass> {
                   color: Colors.indigoAccent,
                 )),
               ),
+              onSaved: (value){
+                _email = value!;
+              },
             ),
           ),
           SizedBox(

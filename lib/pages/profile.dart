@@ -12,6 +12,12 @@ class _ProfileState extends State<Profile> {
   final TextEditingController _expController = TextEditingController();
   final TextEditingController _placeController = TextEditingController();
   final TextEditingController _jobsController = TextEditingController();
+  String _name = '';
+  String _phn = '';
+  String _district = '';
+  String _exp = '';
+  String _place = '';
+  String _jobs = '';
 
   void _checkEmpty() {
     if (_nameController.text.isEmpty ||
@@ -103,6 +109,9 @@ class _ProfileState extends State<Profile> {
                     color: Colors.indigoAccent,
                   )),
                 ),
+                onSubmitted: (value) {
+                  _name = value;
+                },
               ),
             ),
             Padding(
@@ -120,6 +129,9 @@ class _ProfileState extends State<Profile> {
                     color: Colors.indigoAccent,
                   )),
                 ),
+                onSubmitted: (value) {
+                  _phn = value;
+                },
               ),
             ),
             Padding(
@@ -137,6 +149,9 @@ class _ProfileState extends State<Profile> {
                     color: Colors.indigoAccent,
                   )),
                 ),
+                onSubmitted: (value) {
+                  _jobs = value;
+                },
               ),
             ),
             Padding(
@@ -154,6 +169,9 @@ class _ProfileState extends State<Profile> {
                     color: Colors.indigoAccent,
                   )),
                 ),
+                onSubmitted: (value) {
+                  _exp = value;
+                },
               ),
             ),
             Padding(
@@ -193,6 +211,9 @@ class _ProfileState extends State<Profile> {
                     color: Colors.indigoAccent,
                   )),
                 ),
+                onSubmitted: (value) {
+                  _district = value;
+                },
               ),
             ),
             Padding(
@@ -210,6 +231,9 @@ class _ProfileState extends State<Profile> {
                     color: Colors.indigoAccent,
                   )),
                 ),
+                onSubmitted: (value) {
+                  _place = value;
+                },
               ),
             ),
             SizedBox(
