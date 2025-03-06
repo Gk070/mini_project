@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -62,6 +63,17 @@ class _SignUpState extends State<SignUp> {
       Navigator.pushNamed(context, '/login');
     }
   }
+
+  Future<void> createUser() async {
+    try{
+      final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+    }on FirebaseAuthException catch(e){
+      print(e.message);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +144,6 @@ class _SignUpState extends State<SignUp> {
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
-              maxLength: 12,
               controller: _passwordController,
               decoration: InputDecoration(
                 label: Text("Password"),
@@ -158,7 +169,6 @@ class _SignUpState extends State<SignUp> {
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
             child: TextField(
-              maxLength: 12,
               controller: _confirmPasswordController,
               decoration: InputDecoration(
                 label: Text("Confirm Password"),
@@ -208,7 +218,8 @@ class _SignUpState extends State<SignUp> {
           Padding(
             padding: EdgeInsets.fromLTRB(30.0, .0, 30.0, 0.0),
             child: TextButton(
-              onPressed: () {
+              onPressed: () async {
+                await createUser();
                 _checkEmpty();
               },
               style: TextButton.styleFrom(
@@ -219,7 +230,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               child: Text(
-                'Sign up',
+                'Sign in',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.0,

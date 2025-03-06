@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project/firebase_options.dart';
@@ -25,6 +26,8 @@ import 'package:mini_project/pages/applyCarp.dart';
 import 'package:mini_project/pages/applyPlum.dart';
 import 'package:mini_project/pages/applyJob.dart';
 import 'package:mini_project/pages/succAppl.dart';
+import 'package:mini_project/pages/addJob.dart';
+import 'package:mini_project/pages/successfulJob.dart';
 
 
 void main() async{
@@ -35,7 +38,7 @@ void main() async{
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/profile',
+        initialRoute: FirebaseAuth.instance.currentUser != null ? '/homeE' : '/signup',
         routes: {
           '/' : (context) => Page1(),
           '/page2' : (context) => Page2(),
@@ -61,6 +64,8 @@ void main() async{
           '/applyJob' : (context) => ApplyJob(),
           '/succAppl' : (context) => SuccessfulApplication(),
           '/filter' : (context) => Filter(),
+          '/addJob' : (context) => AddJob(),
+          '/succJob' : (context) => SuccessfulJob(),
         },
       )
   );

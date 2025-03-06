@@ -21,7 +21,9 @@ class _ProfileEState extends State<ProfileE> {
         _districtController.text.isEmpty ||
         _placeController.text.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
-    } else {}
+    } else {
+      Navigator.pushNamed(context, '/homeE');
+    }
   }
 
   void _showCupertinoAlert(String message) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:mini_project/util/mainboxE.dart';
+import 'package:mini_project/util/subbox.dart';
 
 class HomeE extends StatefulWidget {
   @override
@@ -7,227 +8,229 @@ class HomeE extends StatefulWidget {
 }
 
 class _HomeEState extends State<HomeE> {
-  String jobPos = '';
-  String district = '';
-  String place = '';
-  String workers = '';
-  String wage = '';
-  String exp = '';
-  String jobDesc = '';
-
-  void _checkEmpty() {
-    if (jobPos.isEmpty ||
-        district.isEmpty ||
-        place.isEmpty ||
-        workers.isEmpty ||
-        wage.isEmpty ||
-        exp.isEmpty ||
-        jobDesc.isEmpty) {
-      _showCupertinoAlert("All fields are mandatory");
-    } else {}
-  }
-
-  void _showCupertinoAlert(String message) {
-    showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text("Invalid Credentials"),
-            content: Text(message),
-            actions: [
-              CupertinoDialogAction(
-                child: Text("Ok"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
-  }
-
+  String search = '';
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          '',
-        ),
-        leading: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.close,
-            )),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-            child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("Job Type"),
-                  hintText: "ex: Plumbing...",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(15.0, 60.0, 15.0, 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Hello, Akhil",
+                  style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                    letterSpacing: 1.0,
+                    color: Colors.indigo[400],
+                  ), //style: ,
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    jobPos = value;
-                  });
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-            child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("District"),
-                  hintText: "ex: Pathanamthitta....",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
+                SizedBox(
+                  height: 5.0,
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    district = value;
-                  });
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-            child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("Place"),
-                  hintText: "ex: Adoor..",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
+                CircleAvatar(
+                  radius: 20.0,
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    place = value;
-                  });
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-            child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  label: Text("Workers Required"),
-                  hintText: "ex: 1, 2..",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    workers = value;
-                  });
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-            child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  label: Text("Wage"),
-                  hintText: "ex: 1000, 2000....",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    wage = value;
-                  });
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-            child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  label: Text("Experience"),
-                  hintText: "ex: 0, 1, ....",
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    place = value;
-                  });
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-            child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text("Job Description"),
-                  filled: true,
-                  fillColor: Colors.indigo[50],
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.indigoAccent,
-                  )),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    place = value;
-                  });
-                }),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20.0, .0, 20.0, 0.0),
-            child: TextButton(
+              ],
+            ),
+            SizedBox(
+              height: 30.0,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SubBox(
+                    type: 'All Jobs',
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  SubBox(
+                    type: 'Plumber',
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  SubBox(
+                    type: 'Technician',
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  SubBox(
+                    type: 'Electrician',
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  SubBox(
+                    type: 'Carpenter',
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  SubBox(
+                    type: 'Mason',
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  MainBoxE(
+                    image: 'images/plumber.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Plumber',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/electrician.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Electrician',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/welder.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Welder',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/plumber.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Plumber',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/electrician.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Electrician',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/welder.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Welder',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/plumber.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Plumber',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/electrician.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Electrician',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/welder.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Welder',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/plumber.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Plumber',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/electrician.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Electrician',
+                    location: 'Pampady, Kottayam',
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MainBoxE(
+                    image: 'images/welder.jpg',
+                    price: '₹900 - ₹1200',
+                    jobPos: 'Welder',
+                    location: 'Pampady, Kottayam',
+                  ),
+                ],
+              ),
+            ),
+            TextButton(
               onPressed: () {
-                _checkEmpty();
+                Navigator.pushNamed(context, '/addJob');
               },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.indigo[500],
-                padding: EdgeInsets.fromLTRB(143.0, 15.0, 143.0, 15.0),
+                padding: EdgeInsets.fromLTRB(125.45, 15.0, 125.45, 15.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7.0),
                 ),
               ),
-              child: Text(
-                'Submit',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Text(
+                    'Add Jobs',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
