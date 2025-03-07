@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_project/services/authServices.dart';
 import 'package:mini_project/util/fullbox.dart';
 import 'package:mini_project/util/mainbox.dart';
 import 'package:mini_project/util/subbox.dart';
@@ -10,6 +11,9 @@ class HomeW extends StatefulWidget {
 
 class _HomeWState extends State<HomeW> {
   String search = '';
+
+  AuthServices _authServices = AuthServices();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +53,13 @@ class _HomeWState extends State<HomeW> {
                     ),
                   ],
                 ),
-                CircleAvatar(
-                  radius: 20.0,
+                GestureDetector(
+                  child: CircleAvatar(
+                    radius: 20.0,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
                 ),
               ],
             ),
@@ -101,15 +110,29 @@ class _HomeWState extends State<HomeW> {
             SizedBox(
               height: 20.0,
             ),
-            Text(
-              "Suggested",
-              style: TextStyle(
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.bold,
-                fontSize: 13.0,
-                letterSpacing: 1.0,
-                color: Colors.indigo[500],
-              ), //style: ,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Suggested",
+                  style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                    letterSpacing: 1.0,
+                    color: Colors.indigo[500],
+                  ), //style: ,
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.logout,
+                  ),
+                  onPressed: () {
+                    _authServices.signOut();
+                    Navigator.pushNamed(context, '/login');
+                  },
+                ),
+              ],
             ),
             SizedBox(
               height: 20.0,

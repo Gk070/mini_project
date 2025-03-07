@@ -38,7 +38,7 @@ void main() async{
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: FirebaseAuth.instance.currentUser != null ? '/homeE' : '/signup',
+        initialRoute: '/login',
         routes: {
           '/' : (context) => Page1(),
           '/page2' : (context) => Page2(),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_project/services/authServices.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -9,11 +10,24 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _chController = TextEditingController();
   String _email = '';
   String _password = '';
-  String _ch = '';
   bool _obscurePassword = true;
+
+  final AuthServices _authService = AuthServices();
+
+  void _login() async {
+    String? result = await _authService.login(
+        emailId: _emailController.text, password: _passwordController.text);
+    if (result == 'E' || result == 'e') {
+      Navigator.pushNamed(context, '/homeE');
+    } else if (result == 'w' || result == 'W') {
+      Navigator.pushNamed(context, '/homeW');
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("SignUp Failed $result")));
+    }
+  }
 
   void _togglePassword() {
     setState(() {
@@ -42,13 +56,10 @@ class _LoginState extends State<Login> {
 
   void _checkEmpty() {
     if (_emailController.text.isEmpty ||
-        _passwordController.text.isEmpty ||
-        _chController.text.isEmpty) {
+        _passwordController.text.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
-    } else if (_chController.text == 'w' || _chController.text == 'W') {
-      Navigator.pushNamed(context, '/profile');
-    } else if (_chController.text == 'e' || _chController.text == 'E') {
-      Navigator.pushNamed(context, '/profileE');
+    } else {
+      _login();
     }
   }
 
@@ -121,7 +132,6 @@ class _LoginState extends State<Login> {
           Padding(
             padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
             child: TextField(
-              maxLength: 12,
               controller: _passwordController,
               decoration: InputDecoration(
                 label: Text("Password"),
@@ -142,26 +152,6 @@ class _LoginState extends State<Login> {
                 _password = value;
               },
               obscureText: _obscurePassword,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
-            child: TextField(
-              controller: _chController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text("Type(Employer, Worker)"),
-                hintText: "E/ W",
-                filled: true,
-                fillColor: Colors.indigo[50],
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.indigoAccent,
-                )),
-              ),
-              onSubmitted: (value) {
-                _ch = value;
-              },
             ),
           ),
           Padding(

@@ -8,6 +8,7 @@ class HomeE extends StatefulWidget {
 }
 
 class _HomeEState extends State<HomeE> {
+  String username = "user";
   String search = '';
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class _HomeEState extends State<HomeE> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Hello, Akhil",
+                  "Hello, $username",
                   style: TextStyle(
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold,
@@ -33,8 +34,13 @@ class _HomeEState extends State<HomeE> {
                 SizedBox(
                   height: 5.0,
                 ),
-                CircleAvatar(
-                  radius: 20.0,
+                GestureDetector(
+                  child: CircleAvatar(
+                    radius: 20.0,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profileE');
+                  },
                 ),
               ],
             ),

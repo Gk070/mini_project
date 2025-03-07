@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mini_project/services/authServices.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -13,12 +13,26 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _chController = TextEditingController();
-  String _email = '';
-  String _password = '';
-  String _confirmPassword = '';
-  String _ch = '';
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+
+  // Instance for AuthService for Authentication process
+  final AuthServices _authService = AuthServices();
+  // Signup function to handle userRegistration
+  void _signup() async {
+    //call signup method from AuthService with user inputs
+    String? result = await _authService.signUp(
+      emailId: _emailController.text,
+      password: _passwordController.text,
+      role: _chController.text,
+    );
+    if (result == null) {
+      Navigator.of(context).pushReplacementNamed('/login');
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("SignUp Failed $result")));
+    }
+  }
 
   void _togglePassword() {
     setState(() {
@@ -51,7 +65,7 @@ class _SignUpState extends State<SignUp> {
         });
   }
 
-  void _checkEmpty() {
+  void _checkEmpty() async {
     if (_emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty ||
@@ -60,20 +74,9 @@ class _SignUpState extends State<SignUp> {
     } else if (_passwordController.text != _confirmPasswordController.text) {
       _showCupertinoAlert("Password not matching");
     } else {
-      Navigator.pushNamed(context, '/login');
+      _signup();
     }
   }
-
-  Future<void> createUser() async {
-    try{
-      final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
-    }on FirebaseAuthException catch(e){
-      print(e.message);
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +139,6 @@ class _SignUpState extends State<SignUp> {
                   color: Colors.indigoAccent,
                 )),
               ),
-              onSubmitted: (value) {
-                _email = value;
-              },
             ),
           ),
           Padding(
@@ -160,9 +160,6 @@ class _SignUpState extends State<SignUp> {
                   },
                 ),
               ),
-              onSubmitted: (value) {
-                _password = value;
-              },
               obscureText: _obscurePassword,
             ),
           ),
@@ -186,9 +183,6 @@ class _SignUpState extends State<SignUp> {
                   },
                 ),
               ),
-              onSubmitted: (value) {
-                _confirmPassword = value;
-              },
               obscureText: _obscureConfirmPassword,
             ),
           ),
@@ -207,9 +201,6 @@ class _SignUpState extends State<SignUp> {
                   color: Colors.indigoAccent,
                 )),
               ),
-              onSubmitted: (value) {
-                _ch = value;
-              },
             ),
           ),
           SizedBox(
@@ -219,7 +210,6 @@ class _SignUpState extends State<SignUp> {
             padding: EdgeInsets.fromLTRB(30.0, .0, 30.0, 0.0),
             child: TextButton(
               onPressed: () async {
-                await createUser();
                 _checkEmpty();
               },
               style: TextButton.styleFrom(
@@ -230,7 +220,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               child: Text(
-                'Sign in',
+                'Sign Up',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.0,
