@@ -38,7 +38,7 @@ void main() async{
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/login',
+        initialRoute: '/profile',
         routes: {
           '/' : (context) => Page1(),
           '/page2' : (context) => Page2(),

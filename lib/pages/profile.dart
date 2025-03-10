@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -18,6 +19,7 @@ class _ProfileState extends State<Profile> {
   String _exp = '';
   String _place = '';
   String _jobs = '';
+  final currentUser = FirebaseAuth.instance.currentUser!;
 
   void _checkEmpty() {
     if (_nameController.text.isEmpty ||
@@ -112,6 +114,23 @@ class _ProfileState extends State<Profile> {
                 onSubmitted: (value) {
                   _name = value;
                 },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+              child: Container(
+                height: 60, // Matches TextField height
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  color: Colors.indigo[50],
+                  border: Border.all(color: Colors.indigoAccent),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  currentUser.email!,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black54),
+                ),
               ),
             ),
             Padding(

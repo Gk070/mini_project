@@ -10,22 +10,27 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String _email = '';
-  String _password = '';
   bool _obscurePassword = true;
 
   final AuthServices _authService = AuthServices();
 
   void _login() async {
     String? result = await _authService.login(
-        emailId: _emailController.text, password: _passwordController.text);
+      emailId: _emailController.text,
+      password: _passwordController.text,
+    );
+
     if (result == 'E' || result == 'e') {
       Navigator.pushNamed(context, '/homeE');
-    } else if (result == 'w' || result == 'W') {
+    } else if (result == 'W' || result == 'w') {
       Navigator.pushNamed(context, '/homeW');
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("SignUp Failed $result")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Login Failed: $result"),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -37,26 +42,26 @@ class _LoginState extends State<Login> {
 
   void _showCupertinoAlert(String message) {
     showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text("Invalid Credentials"),
-            content: Text(message),
-            actions: [
-              CupertinoDialogAction(
-                child: Text('Ok'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("Invalid Credentials"),
+          content: Text(message),
+          actions: [
+            CupertinoDialogAction(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _checkEmpty() {
-    if (_emailController.text.isEmpty ||
-        _passwordController.text.isEmpty) {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       _showCupertinoAlert("All fields are mandatory");
     } else {
       _login();
@@ -66,159 +71,115 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "Login Here",
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 30.0,
-              letterSpacing: 1.0,
-              color: Colors.indigo[500],
-            ),
-            //style: ,
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          Text(
-            "Welcome back you've",
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-              letterSpacing: 1.0,
-              color: Colors.black,
-            ),
-            //style: ,
-          ),
-          Text(
-            "been missed!",
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-              letterSpacing: 1.0,
-              color: Colors.black,
-            ),
-          ),
-          SizedBox(
-            height: 50.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
-            child: TextField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                label: Text("Email"),
-                hintText: "ex: amalkrishna@gmail.com",
-                filled: true,
-                fillColor: Colors.indigo[50],
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.indigoAccent,
-                )),
-              ),
-              onSubmitted: (value) {
-                _email = value;
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
-            child: TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                label: Text("Password"),
-                filled: true,
-                fillColor: Colors.indigo[50],
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.indigoAccent,
-                )),
-                suffixIcon: IconButton(
-                  icon: Icon(_obscurePassword ? Icons.lock : Icons.lock_open),
-                  onPressed: () {
-                    _togglePassword();
-                  },
-                ),
-              ),
-              onSubmitted: (value) {
-                _password = value;
-              },
-              obscureText: _obscurePassword,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(180.0, 0.0, 0.0, 0.0),
-            child: TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/forgotPass');
-              },
-              child: Text(
-                'Forgot your Password?',
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 80),
+              Text(
+                "Login Here",
                 style: TextStyle(
-                  fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.bold,
+                  fontSize: 30.0,
                   letterSpacing: 1.0,
                   color: Colors.indigo[500],
                 ),
               ),
-            ),
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(30.0, .0, 30.0, 0.0),
-            child: TextButton(
-              onPressed: () {
-                _checkEmpty();
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.indigo[500],
-                padding: EdgeInsets.fromLTRB(135.0, 15.0, 135.0, 15.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
-              ),
-              child: Text(
-                'Log in',
+              SizedBox(height: 10),
+              Text(
+                "Welcome back, you've been missed!",
                 style: TextStyle(
-                  color: Colors.white,
                   fontSize: 18.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 50.0),
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  hintText: "example@gmail.com",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.indigoAccent),
+                  ),
                 ),
               ),
-            ),
-          ),
-          SizedBox(
-            height: 60.0,
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                Navigator.pushNamed(context, '/signup');
-              });
-            },
-            child: Text(
-              'Create new account',
-              style: TextStyle(
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.0,
-                color: Colors.indigo[500],
+              SizedBox(height: 15),
+              TextField(
+                controller: _passwordController,
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  filled: true,
+                  fillColor: Colors.indigo[50],
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.indigoAccent),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+                    onPressed: _togglePassword,
+                  ),
+                ),
               ),
-            ),
+              SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/forgotPass');
+                  },
+                  child: Text(
+                    'Forgot your Password?',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo[500],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30.0),
+              TextButton(
+                onPressed: _checkEmpty,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.indigo[500],
+                  padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 120.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0),
+                  ),
+                ),
+                child: Text(
+                  'Log in',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              SizedBox(height: 30.0),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
+                child: Text(
+                  'Create new account',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo[500],
+                  ),
+                ),
+              ),
+              SizedBox(height: 50.0),
+            ],
           ),
-          SizedBox(
-            height: 150.0,
-          ),
-        ],
+        ),
       ),
     );
   }
