@@ -7,6 +7,7 @@ import 'package:open_file/open_file.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -26,7 +27,8 @@ class _ProfileState extends State<Profile> {
   final currentUser  = FirebaseAuth.instance.currentUser !;
   bool _isDownloading = false;
   File? _profileImage;
-  File? _document;
+  File? _document; // Define the _document variable
+  String? _imageUrl; // To store the image URL
 
   @override
   void initState() {
@@ -49,6 +51,7 @@ class _ProfileState extends State<Profile> {
         _expController.text = data['experience'] ?? '';
         _placeController.text = data['place'] ?? '';
         _jobsController.text = data['jobs_interested'] ?? '';
+        _imageUrl = data['image_url']; // Retrieve the image URL
       }
     } catch (e) {
       _showAlertDialog("Error", "Failed to fetch profile data: $e");
@@ -65,6 +68,7 @@ class _ProfileState extends State<Profile> {
         'place': _placeController.text,
         'jobs_interested': _jobsController.text,
         'email': currentUser .email,
+        'image_url': _imageUrl, // Include image URL in profile data
       };
 
       try {
@@ -87,9 +91,36 @@ class _ProfileState extends State<Profile> {
       final image = await picker.pickImage(source: source);
       if (image != null) {
         setState(() => _profileImage = File(image.path));
+        await _uploadImageToFirebase(image); // Upload the image
       }
     } catch (e) {
       _showAlertDialog("Error", "Failed to pick image: $e");
+    }
+  }
+
+  Future<void> _uploadImageToFirebase(XFile image) async {
+    try {
+      // Create a reference to the Firebase Storage
+      Reference storageRef = FirebaseStorage.instance
+          .ref()
+          .child('profile_images/${currentUser .uid}.jpg');
+
+      // Upload the image
+      await storageRef.putFile(File(image.path));
+
+      // Get the download URL
+      String downloadUrl = await storageRef.getDownloadURL();
+      setState(() {
+        _imageUrl = downloadUrl; // Store the image URL
+      });
+
+      // Update Firestore with the new image URL
+      await FirebaseFirestore.instance
+          .collection('profile')
+          .doc(currentUser .uid)
+          .update({'image_url': _imageUrl});
+    } catch (e) {
+      _showAlertDialog("Error", "Failed to upload image: $e");
     }
   }
 
@@ -98,7 +129,7 @@ class _ProfileState extends State<Profile> {
       final picker = ImagePicker();
       final document = await picker.pickImage(source: ImageSource.gallery);
       if (document != null) {
-        setState(() => _document = File(document.path));
+        setState(() => _document = File(document.path)); // Set the document file
       }
     } catch (e) {
       _showAlertDialog("Error", "Failed to pick document: $e");
@@ -190,9 +221,15 @@ class _ProfileState extends State<Profile> {
                 onTap: _showImageSourceDialog,
                 child: CircleAvatar(
                   radius: 70,
-                  backgroundImage: _profileImage != null ? FileImage(_profileImage!) : null,
+                  backgroundImage: _profileImage != null
+                      ? FileImage(_profileImage!)
+                      : _imageUrl != null
+                      ? NetworkImage(_imageUrl!) // Use the image URL if available
+                      : null,
                   backgroundColor: Colors.indigo[100],
-                  child: _profileImage == null ? Icon(Icons.camera_alt, size: 40, color: Colors.indigo[300]) : null,
+                  child: _profileImage == null && _imageUrl == null
+                      ? Icon(Icons.camera_alt, size: 40, color: Colors.indigo[300])
+                      : null,
                 ),
               ),
               SizedBox(height: 20),
