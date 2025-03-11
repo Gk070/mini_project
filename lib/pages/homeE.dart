@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project/util/mainboxE.dart';
 import 'package:mini_project/util/subbox.dart';
+import 'package:mini_project/services/authServices.dart';
 
 class HomeE extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class HomeE extends StatefulWidget {
 class _HomeEState extends State<HomeE> {
   String username = "user";
   String search = '';
+  AuthServices _authServices = AuthServices();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +24,15 @@ class _HomeEState extends State<HomeE> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.logout,
+                  ),
+                  onPressed: () {
+                    _authServices.signOut();
+                    Navigator.pushNamed(context, '/login');
+                  },
+                ),
                 Text(
                   "Hello, $username",
                   style: TextStyle(

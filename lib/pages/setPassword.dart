@@ -1,199 +1,70 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SetPassword extends StatefulWidget {
+  final String email;
+  SetPassword({required this.email});
+
   @override
   _SetPasswordState createState() => _SetPasswordState();
 }
 
 class _SetPasswordState extends State<SetPassword> {
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-  String _password = '';
-  String _confirmPassword = '';
-  bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void _togglePassword() {
-    setState(() {
-      _obscurePassword = !_obscurePassword;
-    });
-  }
+  void _resetPassword() async {
+    String newPassword = _passwordController.text.trim();
 
-  void _toggleConfirmPassword() {
-    setState(() {
-      _obscureConfirmPassword = !_obscureConfirmPassword;
-    });
-  }
-
-  void _showCupertinoAlert(String message) {
-    showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text("Invalid Credentials"),
-            content: Text(message),
-            actions: [
-              CupertinoDialogAction(
-                child: Text("Ok"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
-  }
-
-  void _checkEmpty() {
-    if (_passwordController.text.isEmpty ||
-        _confirmPasswordController.text.isEmpty) {
-      _showCupertinoAlert("All fields are mandatory");
-    } else if (_passwordController != _confirmPasswordController) {
-      _showCupertinoAlert("Password not matching");
-    } else {
-      Navigator.pushNamed(context, '/successful');
+    if (newPassword.length < 6) {
+      _showAlert("Password must be at least 6 characters");
+      return;
     }
+
+    try {
+      User? user = _auth.currentUser;
+      await user?.updatePassword(newPassword);
+      _showAlert("Password reset successfully!");
+      Navigator.pushNamed(context, '/login');
+    } catch (e) {
+      print("Error resetting password: $e");
+      _showAlert("Failed to reset password. Try again.");
+    }
+  }
+
+  void _showAlert(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Notification"),
+        content: Text(message),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: Text("OK")),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(''),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/successful');
-          },
-        ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "      Set a new password",
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 22.0,
-              letterSpacing: 1.0,
-              color: Colors.indigo[500],
-            ),
-            //style: ,
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Text(
-            "        Create a new password. Ensure it differs from",
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-              letterSpacing: 1.0,
-              color: Colors.indigoAccent[100],
-            ),
-            //style: ,
-          ),
-          Text(
-            "        previous ones for security",
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-              letterSpacing: 1.0,
-              color: Colors.indigoAccent[100],
-            ),
-          ),
-          SizedBox(
-            height: 50.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
-            child: TextField(
-              maxLength: 12,
+      appBar: AppBar(title: Text("Set New Password"), backgroundColor: Colors.indigo),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
               controller: _passwordController,
-              decoration: InputDecoration(
-                label: Text("Enter new password"),
-                filled: true,
-                fillColor: Colors.indigo[50],
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.indigoAccent,
-                )),
-                suffixIcon: IconButton(
-                  icon: Icon(_obscurePassword ? Icons.lock : Icons.lock_open),
-                  onPressed: () {
-                    _togglePassword();
-                  },
-                ),
-              ),
-              onSubmitted: (value) {
-                _password = value;
-              },
-              obscureText: _obscurePassword,
+              obscureText: true,
+              decoration: InputDecoration(labelText: "Enter New Password"),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 8.0, 35.0, 8.0),
-            child: TextField(
-              maxLength: 12,
-              controller: _confirmPasswordController,
-              decoration: InputDecoration(
-                label: Text("Re-enter password"),
-                filled: true,
-                fillColor: Colors.indigo[50],
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.indigoAccent,
-                )),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                      _obscureConfirmPassword ? Icons.lock : Icons.lock_open),
-                  onPressed: () {
-                    _toggleConfirmPassword();
-                  },
-                ),
-              ),
-              onSubmitted: (value) {
-                _confirmPassword = value;
-              },
-              obscureText: _obscureConfirmPassword,
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _resetPassword,
+              child: Text("Reset Password"),
             ),
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(30.0, .0, 30.0, 0.0),
-            child: TextButton(
-              onPressed: () {
-                _checkEmpty();
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.indigo[500],
-                padding: EdgeInsets.fromLTRB(95.0, 15.0, 95.0, 15.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
-              ),
-              child: Text(
-                'Update Password',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 340.0,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

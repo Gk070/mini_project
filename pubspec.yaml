@@ -42,6 +42,8 @@ dependencies:
   open_file: ^3.5.10
   permission_handler: ^11.4.0
   firebase_storage: ^12.4.4
+  supabase_flutter: ^2.8.4
+  email_auth: ^2.0.0
 
 dev_dependencies:
   flutter_test:

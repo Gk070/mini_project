@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class ForgotPass extends StatefulWidget {
   @override
@@ -9,130 +11,107 @@ class ForgotPass extends StatefulWidget {
 class _ForgotPassState extends State<ForgotPass> {
   final TextEditingController _emailController = TextEditingController();
 
-  String _email = '';
-
   void _showCupertinoAlert(String message) {
     showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text('Invalid Credentials'),
-            content: Text(message),
-            actions: [
-              CupertinoDialogAction(
-                child: Text(
-                  'Ok',
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: [
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
-  void _checkEmpty() {
-    if (_emailController.text.isEmpty) {
-      _showCupertinoAlert("All fields are mandatory");
-    } else {
-      Navigator.pushNamed(context, '/otp');
+  Future<void> _sendOTP() async {
+    String email = _emailController.text.trim();
+    if (email.isEmpty || !email.contains('@')) {
+      _showCupertinoAlert("Enter a valid email address");
+      return;
     }
+
+    String otp = (Random().nextInt(90000) + 10000).toString(); // Generate 5-digit OTP
+    String docId = "OymujHD68d8kqRY2ZQIb"; // Fixed document ID
+
+    try {
+      await FirebaseFirestore.instance.collection("otp_verification").doc(docId).set({
+        "email": email,
+        "otp": otp,
+        "timestamp": FieldValue.serverTimestamp(),
+      });
+
+      // Call function to send OTP via email (Placeholder)
+      sendEmailOTP(email, otp);
+
+      Navigator.pushNamed(context, '/otp', arguments: email);
+    } catch (e) {
+      _showCupertinoAlert("Failed to send OTP. Try again.");
+    }
+  }
+
+  // Placeholder for sending OTP via email
+  void sendEmailOTP(String email, String otp) {
+    print("OTP sent to $email: $otp"); // Replace with SendGrid/AWS SES
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(''),
+        title: Text('Forgot Password', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.indigo,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-          ),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/login');
           },
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "    Forgot Password",
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 25.0,
-              letterSpacing: 1.0,
-              color: Colors.indigo[800],
+      body: Padding(
+        padding: EdgeInsets.all(25.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Forgot Password",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.indigo[800]),
             ),
-          ),
-          SizedBox(
-            height: 25.0,
-          ),
-          Text(
-            "       Please enter your email to reset the password",
-            style: TextStyle(
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold,
-              fontSize: 15.0,
-              color: Colors.indigoAccent[100],
+            SizedBox(height: 20.0),
+            Text(
+              "Please enter your email to receive an OTP",
+              style: TextStyle(fontSize: 15.0, color: Colors.indigoAccent[100]),
             ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25.0, 8.0, 25.0, 8.0),
-            child: TextFormField(
+            SizedBox(height: 20.0),
+            TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                label: Text("Enter your email"),
-                hintText: "ex: amalkrishna@gmail.com",
+                labelText: "Enter your email",
+                hintText: "example@mail.com",
                 filled: true,
                 fillColor: Colors.indigo[50],
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.indigoAccent,
-                )),
-              ),
-              onSaved: (value){
-                _email = value!;
-              },
-            ),
-          ),
-          SizedBox(
-            height: 25.0,
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(25.0, .0, 20.0, 0.0),
-            child: TextButton(
-              onPressed: () {
-                _checkEmpty();
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.indigo[500],
-                padding: EdgeInsets.fromLTRB(105.0, 15.0, 110.0, 15.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
-              ),
-              child: Text(
-                'Reset Password',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                ),
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.indigoAccent)),
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.indigo, width: 2)),
               ),
             ),
-          ),
-          SizedBox(
-            height: 400.0,
-          ),
-        ],
+            SizedBox(height: 25.0),
+            Center(
+              child: ElevatedButton(
+                onPressed: _sendOTP,
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                child: Text('Send OTP', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
