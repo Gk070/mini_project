@@ -19,6 +19,7 @@ import 'package:mini_project/pages/successful.dart';
 import 'package:mini_project/pages/homeE.dart';
 import 'package:mini_project/pages/applyWel.dart';
 import 'package:mini_project/pages/applyFarmer.dart';
+import 'package:mini_project/pages/applyGardener.dart';
 import 'package:mini_project/pages/applyPharm.dart';
 import 'package:mini_project/pages/applyTech.dart';
 import 'package:mini_project/pages/applyMason.dart';
@@ -84,6 +85,7 @@ void main() async{
           '/filter' : (context) => Filter(),
           '/addJob' : (context) => AddJob(),
           '/succJob' : (context) => SuccessfulJob(),
+          '/applyGardener' : (context) => ApplyGardener(),
         },
       )
   );

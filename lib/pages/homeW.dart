@@ -25,6 +25,9 @@ class _HomeWState extends State<HomeW> {
     'Pharmacist': '/applyPharm',
     'Technician': '/applyTech',
     'Welder': '/applyWel',
+    'Gardener': '/applyGardener',
+    'Laundry': '/applyLaundry',
+    'Cleaner': '/applyCleaner',
   };
 
   @override

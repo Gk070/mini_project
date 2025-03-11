@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ApplyFarmer extends StatefulWidget {
-  @override
-  _ApplyFarmerState createState() => _ApplyFarmerState();
+class ApplyGardener extends StatefulWidget{
+  _ApplyGardenerState createState() => _ApplyGardenerState();
 }
 
-class _ApplyFarmerState extends State<ApplyFarmer> {
+class _ApplyGardenerState extends State<ApplyGardener> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
