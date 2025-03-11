@@ -46,8 +46,10 @@ void main() async{
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/otp':
-              final email = settings.arguments as String;
-              return MaterialPageRoute(builder: (context) => Otp(email: email));
+              final args = settings.arguments as Map<String, String>;
+              final email = args['email']!;
+              final documentId = args['documentId']!; // Get documentId
+              return MaterialPageRoute(builder: (context) => Otp(email: email, documentId: documentId));
 
             case '/setPassword':
               final email = settings.arguments as String;

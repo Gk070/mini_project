@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class Otp extends StatefulWidget {
   final String email;
-  Otp({required this.email});
+  final String documentId; // Add documentId to the constructor
+
+  Otp({required this.email, required this.documentId}); // Update constructor
 
   @override
   _OtpState createState() => _OtpState();
@@ -29,18 +31,16 @@ class _OtpState extends State<Otp> {
     }
 
     try {
-      // 🔥 Query Firestore for OTP using email
-      QuerySnapshot querySnapshot = await _firestore
+      // Fetch the OTP from the specific document using the document ID
+      DocumentSnapshot documentSnapshot = await _firestore
           .collection("otp_verification")
-          .where("email", isEqualTo: widget.email)
-          .orderBy("timestamp", descending: true) // Get the latest OTP
-          .limit(1)
+          .doc(widget.documentId) // Use the document ID passed from the constructor
           .get();
 
-      if (querySnapshot.docs.isEmpty) {
-        _showAlert("No OTP found for this email");
+      if (!documentSnapshot.exists) {
+        _showAlert("No OTP found for this document");
       } else {
-        String storedOtp = querySnapshot.docs.first['otp']; // Get OTP from latest document
+        String storedOtp = documentSnapshot['otp']; // Get OTP from the document
         if (enteredOtp == storedOtp) {
           _showAlert("OTP Verified!");
           Navigator.pushNamed(context, '/setPassword', arguments: widget.email);

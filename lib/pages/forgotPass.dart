@@ -1,7 +1,7 @@
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:math';
 
 class ForgotPass extends StatefulWidget {
   @override
@@ -10,104 +10,110 @@ class ForgotPass extends StatefulWidget {
 
 class _ForgotPassState extends State<ForgotPass> {
   final TextEditingController _emailController = TextEditingController();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  void _showCupertinoAlert(String message) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text('Error'),
-          content: Text(message),
-          actions: [
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
-    );
+  // Show Cupertino Alert Dialog
+  void _showCupertinoAlert(String title, String message) {
+    if (mounted) {
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   Future<void> _sendOTP() async {
     String email = _emailController.text.trim();
     if (email.isEmpty || !email.contains('@')) {
-      _showCupertinoAlert("Enter a valid email address");
+      _showCupertinoAlert("Error", "Enter a valid email address");
       return;
     }
 
-    String otp = (Random().nextInt(90000) + 10000).toString(); // Generate 5-digit OTP
-    String docId = "OymujHD68d8kqRY2ZQIb"; // Fixed document ID
+    // Generate a 5-digit OTP (00000 - 99999)
+    String otp = (Random().nextInt(90000) + 10000).toString();
+    String docId = "OymujHD68d8kqRY2ZQIb"; // Fixed Firestore document ID
 
     try {
-      await FirebaseFirestore.instance.collection("otp_verification").doc(docId).set({
+      debugPrint("📤 Sending OTP to Firestore...");
+
+      // Store OTP in Firestore
+      await _firestore.collection("otp_verification").doc(docId).set({
         "email": email,
         "otp": otp,
         "timestamp": FieldValue.serverTimestamp(),
       });
 
-      // Call function to send OTP via email (Placeholder)
-      sendEmailOTP(email, otp);
+      debugPrint("✅ OTP stored successfully: $otp");
 
-      Navigator.pushNamed(context, '/otp', arguments: email);
+      // Show success message
+      _showCupertinoAlert("Success", "OTP sent successfully to $email");
+
+      // Delay navigation for 1 second so the alert can be seen
+      Future.delayed(Duration(seconds: 1), () {
+        if (mounted) {
+          Navigator.pop(context);
+          Navigator.pushNamed(
+            context,
+            '/otp',  // ❌ This should be '/setPassword' instead!
+            arguments: {
+              'email': email,
+              'documentId': docId,
+            },
+          );// Close the alert before navigating
+        }
+      });
+
     } catch (e) {
-      _showCupertinoAlert("Failed to send OTP. Try again.");
+      debugPrint("❌ Firestore Error: $e");
+      _showCupertinoAlert("Error", "Failed to send OTP. Please try again.");
     }
-  }
-
-  // Placeholder for sending OTP via email
-  void sendEmailOTP(String email, String otp) {
-    print("OTP sent to $email: $otp"); // Replace with SendGrid/AWS SES
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Forgot Password', style: TextStyle(color: Colors.white)),
+        title: Text('Forgot Password'),
         backgroundColor: Colors.indigo,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/login');
-          },
-        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Forgot Password",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.indigo[800]),
-            ),
+            Text("Forgot Password", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.indigo)),
             SizedBox(height: 20.0),
-            Text(
-              "Please enter your email to receive an OTP",
-              style: TextStyle(fontSize: 15.0, color: Colors.indigoAccent[100]),
-            ),
+            Text("Enter your email to receive an OTP", style: TextStyle(fontSize: 15, color: Colors.indigoAccent[100])),
             SizedBox(height: 20.0),
             TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                labelText: "Enter your email",
-                hintText: "example@mail.com",
+                labelText: "Email",
                 filled: true,
                 fillColor: Colors.indigo[50],
-                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.indigoAccent)),
-                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.indigo, width: 2)),
+                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.indigoAccent)),
               ),
             ),
             SizedBox(height: 25.0),
             Center(
               child: ElevatedButton(
                 onPressed: _sendOTP,
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
-                child: Text('Send OTP', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo),
+                child: Text('Send OTP', style: TextStyle(color: Colors.white)),
               ),
             ),
           ],
