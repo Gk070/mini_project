@@ -119,7 +119,7 @@ class _ApplyLaundryState extends State<ApplyLaundry> {
                     height: 10.0,
                   ),
                   Text(
-                    ' • Use appropriate detergents and stain removers for different fabrics.\n • Sort clothes based on fabric type, color, and washing requirements.\n • Operate laundry machines and follow proper washing techniques.\n • Wash, dry, fold, and iron clothes and linens.',
+                    ' • Wash and dry clothes properly.\n • Iron and fold garments neatly.\n • Sort laundry by fabric and color.\n • Remove stains using proper techniques.',
                     style: TextStyle(
                       fontStyle: FontStyle.normal,
                       fontWeight: FontWeight.bold,
@@ -143,7 +143,7 @@ class _ApplyLaundryState extends State<ApplyLaundry> {
                     height: 10.0,
                   ),
                   Text(
-                    ' • Ensuring proper use of detergents and stain removers.\n • Operating and maintaining laundry machines safely.\n • Sorting, washing, drying, folding, and ironing clothes and linens.\n • Experience in laundry services or willingness to learn.',
+                    ' • Basic knowledge of laundry procedures.\n • Ability to handle washing machines and irons.\n • Attention to fabric care and stain removal.\n • Physically fit for lifting and sorting clothes.',
                     style: TextStyle(
                       fontStyle: FontStyle.normal,
                       fontWeight: FontWeight.bold,

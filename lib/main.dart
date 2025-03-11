@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project/firebase_options.dart';
+import 'package:mini_project/pages/applyCleaner.dart';
 import 'package:mini_project/pages/applyElec.dart';
+import 'package:mini_project/pages/applyLaundry.dart';
 import 'package:mini_project/pages/filter.dart';
 import 'package:mini_project/pages/forgotPass.dart';
 import 'package:mini_project/pages/homeW.dart';
@@ -86,6 +88,8 @@ void main() async{
           '/addJob' : (context) => AddJob(),
           '/succJob' : (context) => SuccessfulJob(),
           '/applyGardener' : (context) => ApplyGardener(),
+          '/applyLaundry' : (context) => ApplyLaundry(),
+          '/applyCleaner' : (context) => ApplyCleaner(),
         },
       )
   );
